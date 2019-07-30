@@ -26,7 +26,7 @@
                         <nav class="header-top-nav">
                             <ul>
                                 <li class="header-top-nav-search">
-                                    <a href="#" class="light-link" title="Search"><i class="pe-7s-search"></i></a>
+                                    <a href="#" class="light-link" title="Tìm kiếm"><i class="pe-7s-search"></i></a>
                                     <form action="#" method="get">
                                         <input type="text" class="form-control" placeholder="Tìm kiếm...">
                                         <button type="submit"><i class="pe-7s-search"></i></button>
@@ -49,9 +49,9 @@
                 <div class="col-lg-12">
                     <nav class="header-nav">
                         <ul>
-                            <li class="active"><a href="{% url 'home' %}" title="Start page">Trang chủ</a></li>
+                            <li class="active"><a href="{% url 'home' %}" title="Trang chủ">Trang chủ</a></li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" title="Blog articles">Blog</a>
+                                <a href="#" class="dropdown-toggle" title="Blog">Blog</a>
                                 <ul class="dropdown-menu">
                                     <li class="nav-elipse-blue"><a href="blog_list.html" title="CSS">CSS</a>
                                     </li>
@@ -64,12 +64,19 @@
                                     <li><a href="blog_post.html" title="Blog Post">Blog Post</a></li>
                                 </ul>
                             </li>
+                            <li><a href="{% url 'about' %}" title="Giới thiệu">Giới thiệu</a></li>
                             
-                            <li><a href="{% url 'about' %}" title="Trang cá nhâ">Trang cá nhân</a></li>
-
                             {% if request.user.is_authenticated %}
-                                <li class="logout"><a href="{% url "logout" %}" title="Đăng xuất">Đăng xuất</a></li>
-                                <li class="new-paper" ><a href="shop.html" title="Đăng bài">Đăng bài mới</a></li>
+
+                                <li class="dropdown account">
+                                    <img src="{% static "img/profile-picture7.png" %}" width="35" height="35" alt="Profile Picture" data-rjs="2">
+                                    <a class="dropdown-toggle" title="Blog">Tài khoản</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="shop.html" title="Trang cá nhân">Trang cá nhân <i class="pe-7s-angle-right-circle" style="float:right"></i></a></li>
+                                        <li><a href="shop.html" title="Đăng bài">Đăng bài <i class="pe-7s-pen" style="float:right"></i></a></li>
+                                        <li><a href="{% url "logout" %}" title="Đăng xuất">Đăng xuất <i class="pe-7s-power" style="float:right"></i></a></li>
+                                    </ul>
+                                </li>
                             {% else %}
                                 <li class="register" data-url="{% url "register" %}"><a title="Đăng ký">Đăng ký</a></li>
                                 <li class="login" data-url="{% url "login" %}" ><a title="Đăng nhập">Đăng nhập</a></li>

@@ -483,6 +483,19 @@ header {
           top: -9px;
           left: -34px; }
 
+    .header-nav ul .account{
+      margin-top:-4px;
+      float: right;
+      margin-right: 0; }
+      .header-nav ul .account a {
+        position: relative; }
+        .header-nav ul .account a:before {
+          font-size: 26px;
+          position: absolute;
+          top: -9px;
+          left: -34px; }
+
+
     .header-nav ul .logout{
       margin-left: 52px;
       float: right;
@@ -609,6 +622,12 @@ header {
     .mobile-nav ul .login {
       float: none; } }
   .mobile-nav ul .login a:before {
+    top: 8px; }
+
+  @media (max-width: 991px) {
+    .mobile-nav ul .account {
+      float: none; } }
+  .mobile-nav ul .account a:before {
     top: 8px; }
 
   @media (max-width: 991px) {
