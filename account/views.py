@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.contrib.auth import get_user_model
 from django.template.loader import render_to_string
@@ -87,3 +87,12 @@ def register(request):
 	data['html_form'] = html_form
 
 	return JsonResponse(data)
+
+
+
+def profile(request, username):
+	user = get_object_or_404(User, username=username)
+	context = {
+		'user': user}
+
+	return render(request, 'account/profile.html', context)

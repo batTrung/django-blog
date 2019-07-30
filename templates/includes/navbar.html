@@ -69,11 +69,15 @@
                             {% if request.user.is_authenticated %}
 
                                 <li class="dropdown account">
-                                    <img src="{% static "img/profile-picture7.png" %}" width="35" height="35" alt="Profile Picture" data-rjs="2">
-                                    <a class="dropdown-toggle" title="Blog">Tài khoản</a>
+                                    {% if user.profile.photo %}
+                                        <img src="{{ request.profile.photo.url }}" width="35" height="35" alt="Profile Picture" data-rjs="2">
+                                    {% else %}
+                                        <img src="{% static "img/profile-picture7.png" %}" width="35" height="35" alt="Profile Picture" data-rjs="2">
+                                    {% endif %}
+                                    <a class="dropdown-toggle" title="{{ request.user.username }}">{{ request.user.username }}</a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="shop.html" title="Trang cá nhân">Trang cá nhân <i class="pe-7s-angle-right-circle" style="float:right"></i></a></li>
-                                        <li><a href="shop.html" title="Đăng bài">Đăng bài <i class="pe-7s-pen" style="float:right"></i></a></li>
+                                        <li><a href="{% url "profile" request.user.username %}" title="Trang cá nhân">Trang cá nhân <i class="pe-7s-angle-right-circle" style="float:right"></i></a></li>
+                                        <li><a href="" title="Đăng bài">Đăng bài <i class="pe-7s-pen" style="float:right"></i></a></li>
                                         <li><a href="{% url "logout" %}" title="Đăng xuất">Đăng xuất <i class="pe-7s-power" style="float:right"></i></a></li>
                                     </ul>
                                 </li>
