@@ -1,0 +1,32 @@
+{% load widget_tweaks %}
+
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h2>Đăng ký</h2>
+</div>
+
+<form method="post" action="{% url "register" %}" id="js-register-form" novalidate>
+	{% csrf_token %}
+	
+	<div class="modal-body">
+		<div style="display:none"  class="alert alert-danger" id="error" role="alert">
+
+		</div>
+
+		{% render_field form.username  class="form-control" placeholder="username" %}
+		<small id="username_error" class="text-danger">
+            
+        </small> 
+		{% render_field form.email class="form-control" placeholder="Địa chỉ email" %}
+		{% render_field form.password class="form-control" placeholder="Mật khẩu" %}
+		{% render_field form.password2 class="form-control"  placeholder="Nhập lại mật khẩu" %}
+	</div>
+
+<div class="modal-footer">
+	<button type="button" class="btn btn-secondary" data-dismiss="modal">Quay lại</button>
+	<button type="submit" class="btn btn-primary">Đăng ký</button>
+</div>
+
+</form>

@@ -42,10 +42,26 @@
 
     {% include "includes/navbar.html" %}
     
+    <!-- MODAL FORM  -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                
+            </div>
+        </div>
+    </div>
 
-    {% block main %}
-        
-    {% endblock main %}
+    <!-- MAIN -->
+    <main>
+        <div class="container">
+            <div class="row">
+                {% block main %}
+                    
+                {% endblock main %}
+            </div>
+        </div>
+    </main>
+    <!-- end MAIN -->
 
 
     {% include "includes/footer.html" %}
@@ -60,9 +76,9 @@
     <script type="text/javascript" src="{% static "js/webfont.js" %}"></script>
 
     <!-- MY JAVASCRIPT -->
-    <script type="text/javascript" src="{% static "" %}js/scripts.js"></script>
-
-
+    <script type="text/javascript" src="{% static "js/scripts.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/base.js" %}"></script>
+    
     {% block scripts %}
         
     {% endblock scripts %}

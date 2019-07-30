@@ -455,13 +455,13 @@ header {
         .header-nav ul li a:hover {
           color: #212121;
           text-decoration: none; }
-    .header-nav ul .buyproducts-link {
+    .header-nav ul .register {
       margin-left: 52px;
       float: right;
       margin-right: 0; }
-      .header-nav ul .buyproducts-link a {
+      .header-nav ul .register a {
         position: relative; }
-        .header-nav ul .buyproducts-link a:before {
+        .header-nav ul .register a:before {
           font-family: 'Pe-icon-7-stroke';
           content: '\e6a9';
           font-size: 26px;
@@ -600,9 +600,9 @@ header {
     .mobile-nav ul li.dropdown > a {
       padding-bottom: 18px; }
   @media (max-width: 991px) {
-    .mobile-nav ul .buyproducts-link {
+    .mobile-nav ul .register {
       float: none; } }
-  .mobile-nav ul .buyproducts-link a:before {
+  .mobile-nav ul .register a:before {
     top: 8px; }
 
   @media (max-width: 991px) {
