@@ -1,0 +1,71 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <!-- GENERAL -->
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>
+        {% block title %}
+        
+        {% endblock title %}
+    </title>
+
+    <!-- EXTERNAL CSS -->
+    <link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+    <link rel="stylesheet" href="{% static "css/Pe-icon-7-stroke.css" %}">
+    <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/social-icons.css" %}">
+    <link rel="stylesheet" href="{% static "css/owl.carousel.css" %}">
+    <link rel="stylesheet" href="{% static "css/owl.theme.css" %}">
+
+    <!-- MY CSS -->
+    <link rel="stylesheet" href="{% static "css/main141f.css" %}">
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="{% static "img/favicon.jpg" %}">
+
+
+
+    {% block stylesheet %}
+        
+    {% endblock stylesheet %}
+    
+</head>
+
+<body>
+
+    {% include "includes/navbar.html" %}
+    
+
+    {% block main %}
+        
+    {% endblock main %}
+
+
+    {% include "includes/footer.html" %}
+
+
+    <!-- EXTERNAL JAVASCRIPT -->
+    <script type="text/javascript" src="{% static "js/jquery-1.12.0.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/tether.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/retina.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/owl.carousel.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/webfont.js" %}"></script>
+
+    <!-- MY JAVASCRIPT -->
+    <script type="text/javascript" src="{% static "" %}js/scripts.js"></script>
+
+
+    {% block scripts %}
+        
+    {% endblock scripts %}
+
+</body>
+</html>
