@@ -1,0 +1,48 @@
+{% load static %}
+
+<!-- AUTHOR -->
+<div class="aside-blocks col-lg-4 col-xs-12">
+    <aside class="author">
+        <img src="{% static "img/avatar.png" %}" alt="" data-rjs="2">
+        <h2>Trung Bat</h2>
+        <span class="author-info">Web Developer</span>
+        <span class="author-info">Data Scientist </span>
+        <div class="social">
+            <a target="_blank" href="https://djangobat.com" title="Blog"><i class="icon-social_blogger_circle"></i></a>
+            <a target="_blank" href="https://github.com/batTrung" title="Github"><i class="icon-social_github_circle"></i></a>
+            <a target="_blank" href="https://facebook.com/bat.trung1" title="Facebook"><i class="icon-social_facebook_circle"></i></a>
+        </div>
+        <ul class="author-nav">
+            <li><a href="https://djangobat.com" target="_blank" title=""><i class="pe-7s-browser"></i> My Blog</a></li>
+            <li><a href="{% url "about" %}" title=""><i class="pe-7s-angle-right"></i> Xem thêm</a></li>
+        </ul>
+     
+    </aside>
+    
+    <aside class="categories">
+        <h2 class="aside-title">Categories</h2>
+        <ul>
+            <li><a href="#" title="Blog CSS articles">CSS</a></li>
+            <li><a href="#" title="Blog HTML articles">HTML</a></li>
+            <li><a href="#" title="Blog Javascript articles">Javascript</a></li>
+            <li><a href="#" title="Blog raphic articles">Graphic</a></li>
+        </ul>
+    </aside>
+
+    <aside class="advertisement">
+        <a href="#"><img src="{% static "img/article-image.jpg" %}" alt="Advertisement" data-rjs="2"></a>
+    </aside>
+
+    <aside class="tags">
+        <h2 class="aside-title">Tags</h2>
+        <div class="tags-content">
+            <span class="tag tag-pill tag-default"><a href="#">graphic</a></span>
+            <span class="tag tag-pill tag-default"><a href="#">angular2</a></span>
+            <span class="tag tag-pill tag-default"><a href="#">graphic</a></span>
+            <span class="tag tag-pill tag-default"><a href="#">react</a></span>
+            <span class="tag tag-pill tag-default"><a href="#">it</a></span>
+            <span class="tag tag-pill tag-default"><a href="#">science</a></span>
+        </div>
+    </aside>
+
+</div>

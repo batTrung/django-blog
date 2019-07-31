@@ -5,7 +5,7 @@ from django.template.loader import render_to_string
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from .models import Profile
-from .forms import LoginForm, UserRegistrationForm
+from .forms import LoginForm, UserRegistrationForm, PhotoEditForm, ProfileEditForm
 
 
 User = get_user_model()
@@ -57,7 +57,7 @@ def register(request):
 			new_user.set_password(
 				user_form.cleaned_data['password'])
 			new_user.save()
-			Profile.objects.create(user=new_user)
+			Profile.objects.create(user=new_user, name=new_user.username)
 			user = authenticate(request,
 								username=request.POST['username'],
 								password=request.POST['password'])
@@ -92,7 +92,33 @@ def register(request):
 
 def profile(request, username):
 	user = get_object_or_404(User, username=username)
+	try: 
+		profile = user.profile
+	except:
+		profile = None
+
+	form = ProfileEditForm(instance=profile)
+
 	context = {
-		'user': user}
+		'user': user,
+		'form': form}
 
 	return render(request, 'account/profile.html', context)
+
+
+
+def profile_photo_upload(request):
+	if request.method =='POST':
+		print('POST')
+		profile_form = PhotoEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)
+		if profile_form.is_valid():
+			profile_form.save()
+			photo = request.user.profile.photo
+			photo_html = render_to_string('account/includes/photo_form.html', {'photo': photo})
+
+			data = {'is_valid':True, 'photo_html':photo_html}
+		else:
+			data = {'is_valid':False}
+
+		return JsonResponse(data)
+

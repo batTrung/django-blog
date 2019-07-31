@@ -9,31 +9,33 @@
 {% block main %}
 <!-- General informations -->
 <div class="col-xs-12">
+	<div style="display: none" class="alert alert-success" id="success" role="alert">
+		xxxxxxxxxxxxxx
+	</div>
+	<div style="display: none" class="alert alert-danger" id="error" role="alert">
+		xxxxxxxxxxxxxx
+	</div>
+
 	<section class="general-info white-box">
 		<div class="author">
-			{% if user.profile.photo %}
-				<img src="{{ user.profile.photo.url }}" alt="" data-rjs="2">
-			{% else %}
-				<img src="{% static "img/profile-picture.png" %}" alt="" data-rjs="2">
-			{% endif %}
+			<div class="js-avatar">
+				{% include "account/includes/photo_form.html" %}
+			</div>
+
+			<input id="fileupload" type="file" name="photo" style="display: none;" data-url="{% url "profile_photo_upload" %}" data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+
 			<ul class="author-nav">
-				<li><a href="#" title=""><i class="pe-7s-id"></i> Download my CV</a></li>
-				<li><a href="#" title=""><i class="pe-7s-note"></i> Chỉnh sửa</a></li>
+				<li  class="js-avatar"><a href="" class="avatar" title=""><i class="pe-7s-note"></i> Tải ảnh lên</a></li>
 			</ul>
 		</div>
-		<div class="general-info-right">
-			<h1>{{ user.username }}</h1>
-			<div class="clear"></div>
-			<span class="general-info-right-author-info">{{ user }}</span>
-			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-				erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ulla corper suscipit lobortis nisl ut aliquip ex ea commodo
-				consequat. Duis autem vel eum iriure dolor in hendr rit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat
-				nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te
-				feugait nulla facilisi. Lorem ipsum dolor sitamet, consectetuer adipiscing elit.
-			</p>
-			<img src="img/signature.jpg" alt="" title="Author Signature" data-rjs="2">
-		</div>
+
+	 	<div class="body-profile">
+	 		{% include "account/includes/profile-form.html" %}
+	 	</div>
+
 	</section>
+
+
 </div>
 
 {% endblock main %}

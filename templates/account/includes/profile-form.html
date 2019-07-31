@@ -1,0 +1,14 @@
+{% load widget_tweaks %}
+
+<form action="" method="post" id="js-profile-form">
+	{% csrf_token %}
+	<div class="general-info-right">
+		<h1>{% render_field form.name class="form-control" placeholder="Tên của bạn" %}</h1>
+		<div class="clear"></div>
+		<span class="general-info-right-author-info">{% render_field form.job class="form-control" placeholder="Công việc" %}</span>
+		<p>
+			{% render_field form.description cols="70" class="form-control" placeholder="Miêu tả về bạn" %}
+		</p>
+		<input type="submit" class="btn" value="Lưu">
+	</div>
+</form>

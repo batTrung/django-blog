@@ -11,10 +11,16 @@ class LoginForm(forms.Form):
 	password = forms.CharField(widget=forms.PasswordInput)
 
 
-class ProfileForm(forms.ModelForm):
+class PhotoEditForm(forms.ModelForm):
 	class Meta:
 		model = Profile
 		fields = ('photo', )
+
+
+class ProfileEditForm(forms.ModelForm):
+	class Meta:
+		model = Profile
+		fields = ('name', 'job', 'description', )
 
 
 class UserRegistrationForm(forms.ModelForm):
@@ -32,3 +38,5 @@ class UserRegistrationForm(forms.ModelForm):
 			raise forms.ValidationError("Mật khẩu không khớp.")
 
 		return cd['password2']
+
+

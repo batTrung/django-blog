@@ -53,15 +53,16 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" title="Blog">Blog</a>
                                 <ul class="dropdown-menu">
-                                    <li class="nav-elipse-blue"><a href="blog_list.html" title="CSS">CSS</a>
+                                     <li><a href="{% url "home" %}" title="Blog Post">Tất cả</a></li>
+                                    <li><a href="blog_list.html" title="CSS">CSS</a>
                                     </li>
-                                    <li class="nav-elipse-red"><a href="blog_list.html" title="HTML">HTML</a>
+                                    <li><a href="blog_list.html" title="HTML">HTML</a>
                                     </li>
-                                    <li class="nav-elipse-yellow"><a href="blog_list.html" title="Javascript">Javascript</a>
+                                    <li><a href="blog_list.html" title="Javascript">Javascript</a>
                                     </li>
-                                    <li class="nav-elipse-green"><a href="blog_list.html" title="Python">Python</a>
+                                    <li><a href="blog_list.html" title="Python">Python</a>
                                     </li>
-                                    <li><a href="blog_post.html" title="Blog Post">Blog Post</a></li>
+                                   
                                 </ul>
                             </li>
                             <li><a href="{% url 'about' %}" title="Giới thiệu">Giới thiệu</a></li>
@@ -72,7 +73,7 @@
                                     {% if user.profile.photo %}
                                         <img src="{{ request.profile.photo.url }}" width="35" height="35" alt="Profile Picture" data-rjs="2">
                                     {% else %}
-                                        <img src="{% static "img/profile-picture7.png" %}" width="35" height="35" alt="Profile Picture" data-rjs="2">
+                                        <img src="{% static "img/profile-picture.png" %}" width="35" height="35" alt="Profile Picture" data-rjs="2">
                                     {% endif %}
                                     <a class="dropdown-toggle" title="{{ request.user.username }}">{{ request.user.username }}</a>
                                     <ul class="dropdown-menu">
