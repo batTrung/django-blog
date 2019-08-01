@@ -1,41 +1,52 @@
 {% extends "base.html" %}
 
 {% load static %}
+{% load thumbnail %}
 
 {% block title %}
-	Giới thiệu
+	Trang cá nhân
 {% endblock title %}
 
 {% block main %}
-<!-- General informations -->
-<div class="col-xs-12">
-	<div style="display: none" class="alert alert-success" id="success" role="alert">
-		xxxxxxxxxxxxxx
-	</div>
-	<div style="display: none" class="alert alert-danger" id="error" role="alert">
-		xxxxxxxxxxxxxx
-	</div>
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12">
+			{% for message in messages  %}
+				<div class="alert alert-{{ message.tags }}">
+					{{ message }}
+				</div>
+			{% endfor %}
 
-	<section class="general-info white-box">
-		<div class="author">
-			<div class="js-avatar">
-				{% include "account/includes/photo_form.html" %}
-			</div>
+			<section class="general-info white-box">
 
-			<input id="fileupload" type="file" name="photo" style="display: none;" data-url="{% url "profile_photo_upload" %}" data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+		      <div class="author">
+		      	<div id="photo-include">
+		      		{% include "account/includes/photo-form.html" %}
+		      	</div>
+		      	<div class="message">
+				
+				</div>
 
-			<ul class="author-nav">
-				<li  class="js-avatar"><a href="" class="avatar" title=""><i class="pe-7s-note"></i> Tải ảnh lên</a></li>
-			</ul>
+		      	<input id="fileupload" type="file" name="photo" style="display: none;" data-url="{% url "photo_update" %}" data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+
+		      	<ul class="author-nav">
+		      		<li><a href="" id="js-photo" title=""><i class="pe-7s-cloud-upload"></i> Tải ảnh lên</a></li>
+		      	</ul>
+		      </div>
+
+		      <div class="body-profile">
+		      	{% include "account/includes/profile-form.html" %}
+		      </div>
+				
+			</section>
 		</div>
-
-	 	<div class="body-profile">
-	 		{% include "account/includes/profile-form.html" %}
-	 	</div>
-
-	</section>
-
-
+	</div>
 </div>
 
 {% endblock main %}
+
+{% block scripts %}
+	<script type="text/javascript" src="{% static "js/jquery-file-upload/vendor/jquery.ui.widget.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/jquery-file-upload/jquery.fileupload.js" %}"></script>
+    <script src="{% static "js/photoUpdate.js" %}"></script>
+{% endblock scripts %}

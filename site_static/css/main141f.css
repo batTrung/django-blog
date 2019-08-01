@@ -317,7 +317,7 @@ a.dark-link {
   border-radius: 0;
   font-size: 15px;
   color: #a6a9ac;
-  padding: 12px 0;
+  padding: 7px 0 ;
   line-height: 24px;
   transition: all 0.2s ease-in-out; }
   .form-control:active {
@@ -2094,3 +2094,10 @@ footer {
       @media (max-width: 575px) {
         .portfolio .shop-item .portfolio-item-wrapper .portfolio-item-wrapper-left .portfolio-item-wrapper-left-footer button {
           margin-bottom: 16px; } }
+
+
+.alert-debug{
+  background-color: #f2dede;
+    border-color: #ebcccc;
+    color: #a94442;
+}

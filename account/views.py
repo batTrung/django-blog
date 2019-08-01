@@ -1,19 +1,20 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib.auth import get_user_model
 from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
+from django.contrib import messages
 from .models import Profile
-from .forms import LoginForm, UserRegistrationForm, PhotoEditForm, ProfileEditForm
+from .forms import LoginForm, UserRegistrationForm, ProfileEditForm, UserEditForm, PhotoForm
 
 
 User = get_user_model()
 
 
 def login(request):
-	data = {}
-
+	messages.set_level(request, messages.DEBUG)
 	if request.method == 'POST':
 		form = LoginForm(request.POST)
 		if form.is_valid():
@@ -24,31 +25,22 @@ def login(request):
 			if user is not None:
 				if user.is_active:
 					auth_login(request, user)
-					data['form_valid'] = True
-					data['username'] = user.username
+					next_url = request.POST.get('next')
+					if next_url:
+						return HttpResponseRedirect(next_url)
+					return redirect('home')
 				else:
-					data['form_valid'] = False
-					data['error'] = 'Tài khoản đã bị vô hiệu hóa'
-			else:
-				data['form_valid'] = False
-				data['error'] = 'Tên hoặc mật khẩu không đúng.'
+					messages.debug(request, 'Tài khoản đã bị vô hiệu hóa')
 		else:
-			data['form_valid'] = False
-			data['error'] = 'Tên hoặc mật khẩu không đúng.'
-
+			messages.debug(request, 'Tên hoặc mật khẩu không đúng.')
 	else:			
 		form = LoginForm()
 
-	html_form = render_to_string(
-		'account/login-form.html',
-		{'form': form},
-		request=request)
-	data['html_form'] = html_form
-
-	return JsonResponse(data)
+	return render(request, 'account/login.html', {'form': form})
 
 
 def register(request):
+	messages.set_level(request, messages.DEBUG)
 	data = {}
 	if request.method == 'POST':
 		user_form = UserRegistrationForm(request.POST)
@@ -57,68 +49,78 @@ def register(request):
 			new_user.set_password(
 				user_form.cleaned_data['password'])
 			new_user.save()
-			Profile.objects.create(user=new_user, name=new_user.username)
+			Profile.objects.create(user=new_user)
 			user = authenticate(request,
 								username=request.POST['username'],
 								password=request.POST['password'])
 			auth_login(request, user)
-			data['form_valid'] = True
-
+			messages.success(request, 'Đăng ký thành công')
+			return redirect('home')
 		else:
-			data['form_valid'] = False
 			if user_form['username'].errors:
-				data['error'] = "Tên không hợp lệ. Tên chỉ chứa các ký tự, số và @/./+/-/_"
-				print(user_form['username'].errors)
+				messages.debug(request, 'Tên không hợp lệ. Tên chỉ chứa các ký tự, số và @/./+/-/_')
 			elif user_form['email'].errors:
-				data['error'] = 'Địa chỉ email không hợp lệ'
+				messages.debug(request, 'Địa chỉ email không hợp lệ')
 			elif user_form['password'].errors:
-				print(user_form['password'].errors)
-				data['error'] = 'Mật khẩu không hợp lệ. Ít nhất có 8 ký tự.'
+				messages.debug(request, 'Mật khẩu không hợp lệ. Ít nhất có 8 ký tự.')
 			elif user_form['password2'].errors:
-				data['error'] = 'Mật khẩu không hợp lệ hoặc không khớp.'
+				messages.debug(request, 'Mật khẩu không hợp lệ hoặc không khớp.')
 
 	else:
 		user_form = UserRegistrationForm()
 
-	html_form = render_to_string(
-					'account/register.html',
-					{'form': user_form},
-					request=request)
-	data['html_form'] = html_form
 
-	return JsonResponse(data)
+	return render(request, 'account/register.html', {'user_form': user_form})
 
 
-
-def profile(request, username):
-	user = get_object_or_404(User, username=username)
+@login_required
+def edit_profile(request):
+	messages.set_level(request, messages.DEBUG)
 	try: 
-		profile = user.profile
+		profile = request.user.profile
 	except:
 		profile = None
 
-	form = ProfileEditForm(instance=profile)
+	if request.method == 'POST':
+		user_form = UserEditForm(instance=request.user, data=request.POST)
+		profile_form = ProfileEditForm(
+			instance=profile,
+			data=request.POST)
+		if user_form.is_valid() and profile_form.is_valid():
+			user_form.save()
+			profile = profile_form.save(commit=False)
+			profile.user = request.user
+			profile.save()
+			messages.success(request, 'Cập nhật thành công')
+		else:
+			messages.debug(request, 'Cập nhật không thành công. Vui lòng thử lại')
+	else:
+		user_form = UserEditForm(instance=request.user)
+		profile_form = ProfileEditForm(instance=profile)
 
 	context = {
-		'user': user,
-		'form': form}
+		'user': request.user,
+		'user_form': user_form,
+		'profile_form': profile_form}
 
 	return render(request, 'account/profile.html', context)
 
 
+@login_required
+def photo_update(request):
+	try: 
+		profile = request.user.profile
+	except:
+		profile = None
 
-def profile_photo_upload(request):
 	if request.method =='POST':
-		print('POST')
-		profile_form = PhotoEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)
-		if profile_form.is_valid():
-			profile_form.save()
-			photo = request.user.profile.photo
-			photo_html = render_to_string('account/includes/photo_form.html', {'photo': photo})
+		photo_form = PhotoForm(instance=profile, data=request.POST, files=request.FILES)
+		if photo_form.is_valid():
+			photo_form.save()
+			photo_html = render_to_string('account/includes/photo-form.html', {'user': request.user})
 
 			data = {'is_valid':True, 'photo_html':photo_html}
 		else:
 			data = {'is_valid':False}
 
 		return JsonResponse(data)
-

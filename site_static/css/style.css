@@ -6,3 +6,9 @@ img.avatar:hover{
 	opacity: .2;
 
 }
+.alert-debug{
+	background-color: #f2dede;
+    border-color: #ebcccc;
+    color: #a94442;
+}
+ 

@@ -1,60 +1,64 @@
 {% extends "base.html" %}
 
 {% load static %}
+{% load blog_tag %}
+
+{% load thumbnail %}
 
 {% block title %}
-	BLOG DJANGO
+BLOG DJANGO
 {% endblock title %}
 
 
 {% block main %}
-<!-- ARTICLES -->
-<div class="col-lg-8 col-xs-12">
-    <section class="articles">
 
-        <article>
-            <img class="articles-preview-img" src="{% static "img/article-image.jpg" %}" alt="" title="" data-rjs="2">
-            <div class="articles-header">
-                <time datetime="2016-10-11">12 giờ trước</time>
-                <span class="articles-header-tag">New</span>
-                <span class="articles-header-category"><a href="#" class="blue" title="">Python</a></span>
-            </div>
-            <div class="articles-content">
-                <h1><a href="blog_post.html" title="">Keeping Your Business And Clients Safe With Digital Policies</a></h1>
-                <p>
-                    Digital workers, especially web designers and developers, need to recognize that policy influences their products online much as
-                    it does offline. Whatever the scale of our enterprise — whether a large corporation, small digital agency, software...
-                </p>
-            </div>
-            <div class="articles-footer">
-                <ul>
-                    <li><a href="#" title=""><i class="pe-7s-comment"></i> 7 bình luận</a></li>
-                    <li><a href="#" title=""><i class="pe-7s-like"></i> 1221</a></li>
-                </ul>
-                <a title="" class="btn" href="{% url "about" %}">Xem thêm</a>
+<div class="container">
+    <div class="row">
 
-            </div>
-        </article>
+        <div class="col-lg-8 col-xs-12">
+            <section class="articles">
+
+                {% for post in posts  %}
+                <article>
+
+                    {% thumbnail post.image "596x359" as im %}
+                        <img class="articles-preview-img" src="{{ im.url }}">
+                    {% endthumbnail %}
+
+                    <div class="articles-header">
+                        <time datetime="2016-10-11">{{ post.created|timesince|to_time }} trước</time>
+                        <i style="font-size: 20px;" class="pe-7s-timer"></i>
+                        <span class="articles-header-category"><a href="#" class="blue" title="">{{ post.category.name }}</a></span>
+                    </div>
+
+                    <div class="articles-content">
+                        <h1><a href="{{ post.get_absolute_url }}" title="">{{ post.title }}</a></h1>
+                        <p>
+                           {{ post.body|truncatewords:40 }}
+                       </p>
+                   </div>
+                   <div class="articles-footer">
+                        <ul>
+                            <li><a href="#" title=""><i class="pe-7s-comment"></i> 7 bình luận</a></li>
+                            <li><a href="#" title=""><i class="pe-7s-like"></i> {{ post.user_like.count|default:0 }} </a></li>
+                        </ul>
+                        <a title="" class="btn" href="{{ post.get_absolute_url }}">Xem thêm</a>
+
+                    </div>
+                </article>
+                {% endfor %}
 
 
-        <!-- PAGINATION -->
-        <nav aria-label="...">
-            <a title="" href="#" class="btn-small-white pagination-back">Trước</a>
-            <ul class="pagination">
-                <li class="page-item active">
-                    <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item page-item-more"><a class="page-link" href="#">...</a></li>
-                <li class="page-item"><a class="page-link" href="#">25</a></li>
-            </ul>
-            <a title="" href="blog_post.html" class="btn-small-white pagination-next">Tiếp</a>
-        </nav>
+                <!-- PAGINATION -->
+                {% include "blog/includes/pagination.html" with page=posts %}
 
-    </section>
+            </section>
+
+        </div>
+
+        {% include "includes/aside.html" %}
+        
+    </div>
 </div>
-
-{% include "includes/aside.html" %}
 
 {% endblock main %}

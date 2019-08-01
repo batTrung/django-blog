@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load widget_tweaks %}
+{% load blog_tag %}
+
+{% block title %}
+Đăng bài viết mới
+{% endblock title %}
+
+{% block main %}
+
+<section class="articles articles-blog-post">
+  <article class="articles-blog-post">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-xs-12">
+
+          <div class="articles-header">
+            <time datetime="2016-10-11">{{ post.created|timesince|to_time }}</time>
+            <span class="articles-header-category"><a href="#" class="green" title="">{{ post.category.name }}</a></span>
+          </div>
+
+          <div class="articles-content">
+            <img class="articles-preview-img" src="{{ post.image.url }}">
+            
+            <h1 class="articles-content-blog-post-title">{{ post.title }}</h1>
+
+             <p>
+                {{ post.body }}  
+             </p>
+
+          </div>
+        </div>
+
+
+        <!-- SHARE THIS BLOCK -->
+        <div class="col-lg-2 col-xs-12">
+          <div class="articles-blog-post-share">
+            <h3>Share this</h3>
+            <div>
+              <ul>
+                <li><a href="#" title="Facebook"><i class="fa fa-facebook"></i>Facebook</a></li>
+                <li><a href="#" title="Twitter"><i class="fa fa-twitter"></i>Twitter</a></li>
+                <li><a href="#" title="Google+"><i class="fa fa-google-plus"></i>Google+</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </article>
+</section>
+<!-- end ARTICLE BLOG POST -->
+
+<!-- ARTICLE BOTTOM INFO -->
+<div class="articles-info">
+
+  <!-- ARTICLE BOTTOM INFO AUTHOR -->
+  <section class="articles-info-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-xs-12">
+
+          <div class="articles-footer">
+            <ul class="articles-footer-info">
+              <li><a title="" href="#" class="light-link"><i class="pe-7s-comment"></i> 7 Bình luận</a></li>
+              <li><a title="" href="#" class="light-link"><i class="pe-7s-like"></i> {{ post.user_like.count|default:0 }} </a></li>
+            </ul>
+            <button class="btn btn-light-blue"><a title="Write a response" href="#">Viết bình luận</a></button>
+          </div>
+
+          {% include "blog/includes/about.html" %}
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% include "blog/includes/related-post.html" %}
+
+
+  {% include "blog/includes/comment.html" %}
+
+
+  </div>
+
+{% endblock main %}

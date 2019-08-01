@@ -1,32 +1,50 @@
+{% extends "base.html" %}
+
 {% load widget_tweaks %}
 
-<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		<span aria-hidden="true">&times;</span>
-	</button>
-	<h2>Đăng ký</h2>
-</div>
+{% block title %}
+	Đăng ký
+{% endblock title %}
 
-<form method="post" action="{% url "register" %}" id="js-register-form" novalidate>
-	{% csrf_token %}
-	
-	<div class="modal-body">
-		<div style="display:none"  class="alert alert-danger" id="error" role="alert">
+{% block main %}
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12">
+			{% for message in messages  %}
+			<div class="alert alert-{{ message.tags }}">
+				{{ message }}
+			</div>
+			{% endfor %}
+
+			<section class="contact white-box">
+				<div>
+					<h2>Đăng ký</h2>
+					<p class="font-primary">Trở thành thành viên để có thể giao lưu nhiều hơn.</p>
+					<form method="post" action="{% url "register" %}" novalidate>
+						{% csrf_token %}
+						<div class="form-group">
+							<label for="{{ user_form.username.id_for_label }}">Username</label>
+							{% render_field user_form.username  class="form-control" placeholder="username" %}
+						</div>
+						<div class="form-group">
+							<label for="{{ user_form.email.id_for_label }}">Email</label>
+							{% render_field user_form.email class="form-control" placeholder="Địa chỉ email" %}
+						</div>
+						<div class="form-group">
+							<label for="{{ user_form.password.id_for_label }}">Mật khẩu</label>
+							{% render_field user_form.password class="form-control" placeholder="Mật khẩu" %}
+						</div>
+						<div class="form-group">
+							<label for="{{ user_form.password2.id_for_label }}">Nhập lại mật khẩu</label>
+							{% render_field user_form.password2 class="form-control"  placeholder="Nhập lại mật khẩu" %}
+						</div>	
+						<button type="submit" class="btn btn-primary">Đăng ký</button>
+						<p class="font-primary">Nếu đã có tài khoản  <a href="{% url 'login' %}" style="color:blue">Đăng nhập ngay</a></p>
+					</form>
+				</div>
+			</section>
 
 		</div>
-
-		{% render_field form.username  class="form-control" placeholder="username" %}
-		<small id="username_error" class="text-danger">
-            
-        </small> 
-		{% render_field form.email class="form-control" placeholder="Địa chỉ email" %}
-		{% render_field form.password class="form-control" placeholder="Mật khẩu" %}
-		{% render_field form.password2 class="form-control"  placeholder="Nhập lại mật khẩu" %}
 	</div>
-
-<div class="modal-footer">
-	<button type="button" class="btn btn-secondary" data-dismiss="modal">Quay lại</button>
-	<button type="submit" class="btn btn-primary">Đăng ký</button>
 </div>
-
-</form>
+{% endblock main %}

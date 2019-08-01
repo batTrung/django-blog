@@ -1,4 +1,7 @@
 {% load static %}
+{% load thumbnail %}
+{% load blog_tag %}
+
 <!-- HEADER -->
 <header class="navbar-fixed-top">
     <div class="container">
@@ -53,16 +56,7 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" title="Blog">Blog</a>
                                 <ul class="dropdown-menu">
-                                     <li><a href="{% url "home" %}" title="Blog Post">Tất cả</a></li>
-                                    <li><a href="blog_list.html" title="CSS">CSS</a>
-                                    </li>
-                                    <li><a href="blog_list.html" title="HTML">HTML</a>
-                                    </li>
-                                    <li><a href="blog_list.html" title="Javascript">Javascript</a>
-                                    </li>
-                                    <li><a href="blog_list.html" title="Python">Python</a>
-                                    </li>
-                                   
+                                    {% get_category %}
                                 </ul>
                             </li>
                             <li><a href="{% url 'about' %}" title="Giới thiệu">Giới thiệu</a></li>
@@ -71,20 +65,26 @@
 
                                 <li class="dropdown account">
                                     {% if user.profile.photo %}
-                                        <img src="{{ request.profile.photo.url }}" width="35" height="35" alt="Profile Picture" data-rjs="2">
+                                        {% thumbnail request.user.profile.photo "35x35" as photo %}
+                                            <img src="{{ photo.url }}">
+                                        {% endthumbnail %}
                                     {% else %}
                                         <img src="{% static "img/profile-picture.png" %}" width="35" height="35" alt="Profile Picture" data-rjs="2">
                                     {% endif %}
                                     <a class="dropdown-toggle" title="{{ request.user.username }}">{{ request.user.username }}</a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="{% url "profile" request.user.username %}" title="Trang cá nhân">Trang cá nhân <i class="pe-7s-angle-right-circle" style="float:right"></i></a></li>
-                                        <li><a href="" title="Đăng bài">Đăng bài <i class="pe-7s-pen" style="float:right"></i></a></li>
+                                        <li><a href="{% url "edit_profile" %}" title="Trang cá nhân">Trang cá nhân <i class="pe-7s-angle-right-circle" style="float:right"></i></a></li>
+                
+                                        {% if request.user.is_superuser %}
+                                            <li><a href="{% url "create_post" %}" title="Đăng bài">Đăng bài <i class="pe-7s-pen" style="float:right"></i></a></li>
+                                        {% endif %}
+                
                                         <li><a href="{% url "logout" %}" title="Đăng xuất">Đăng xuất <i class="pe-7s-power" style="float:right"></i></a></li>
                                     </ul>
                                 </li>
                             {% else %}
-                                <li class="register" data-url="{% url "register" %}"><a title="Đăng ký">Đăng ký</a></li>
-                                <li class="login" data-url="{% url "login" %}" ><a title="Đăng nhập">Đăng nhập</a></li>
+                                <li class="register"><a href="{% url "register" %}" title="Đăng ký">Đăng ký</a></li>
+                                <li class="login"><a href="{% url "login" %}" title="Đăng nhập">Đăng nhập</a></li>
                             {% endif %}
 
                         </ul>

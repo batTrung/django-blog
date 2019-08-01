@@ -4,9 +4,9 @@ from . import views
 
 
 urlpatterns = [
-	path('ajax/login/', views.login, name='login'),
-	path('ajax/register/', views.register, name='register'),
+	path('login/', views.login, name='login'),
 	path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-	path('<slug:username>/', views.profile, name='profile'),
-	path('profile/photo/upload/', views.profile_photo_upload, name='profile_photo_upload'),
+	path('register/', views.register, name='register'),
+	path('proflie/edit/', views.edit_profile, name='edit_profile'),
+	path('photo/update/', views.photo_update, name='photo_update'),
 ]

@@ -11,16 +11,22 @@ class LoginForm(forms.Form):
 	password = forms.CharField(widget=forms.PasswordInput)
 
 
-class PhotoEditForm(forms.ModelForm):
+class UserEditForm(forms.ModelForm):
 	class Meta:
-		model = Profile
-		fields = ('photo', )
+		model = User
+		fields = ('first_name', 'last_name', 'email', )
 
 
 class ProfileEditForm(forms.ModelForm):
 	class Meta:
 		model = Profile
-		fields = ('name', 'job', 'description', )
+		fields = ('description', )
+
+
+class PhotoForm(forms.ModelForm):
+	class Meta:
+		model = Profile
+		fields = ('photo', )
 
 
 class UserRegistrationForm(forms.ModelForm):

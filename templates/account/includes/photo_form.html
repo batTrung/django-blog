@@ -1,7 +1,0 @@
-{% load static %}
-
-{% if user.profile.photo %}
-	<a href="" class="avatar"><img src="{{ user.profile.photo.url }}" alt=""></a>
-{% else %}
-	<a href="" class="avatar"><img src="{% static "img/profile-picture.png" %}" class="avatar" alt="avatar"></a>
-{% endif %}

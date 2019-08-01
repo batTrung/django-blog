@@ -1,14 +1,31 @@
 {% load widget_tweaks %}
 
-<form action="" method="post" id="js-profile-form">
+<form action="." method="post" novalidate>
 	{% csrf_token %}
 	<div class="general-info-right">
-		<h1>{% render_field form.name class="form-control" placeholder="Tên của bạn" %}</h1>
-		<div class="clear"></div>
-		<span class="general-info-right-author-info">{% render_field form.job class="form-control" placeholder="Công việc" %}</span>
-		<p>
-			{% render_field form.description cols="70" class="form-control" placeholder="Miêu tả về bạn" %}
-		</p>
+		
+		<div class="form-group">
+			<label for="{{ user_form.first_name.id_for_label }}">Họ</label>
+			{% render_field user_form.first_name class="form-control" placeholder="Họ" %}
+		</div>
+
+		<div class="form-group">
+			<label for="{{ user_form.last_name.id_for_label }}">Tên</label>
+			{% render_field user_form.last_name class="form-control" placeholder="Tên" %}
+		</div>
+
+		<div class="form-group">
+			<label for="{{ user_form.email.id_for_label }}">Email</label>
+			{% render_field user_form.email class="form-control" placeholder="Email" %}
+		</div>
+
+		<div class="form-group">
+			<label for="{{ profile_form.description.id_for_label }}">Miêu tả về bạn</label>
+			{% render_field profile_form.description cols="70" class="form-control" placeholder="Miêu tả về bạn" %}
+		</div>
+
 		<input type="submit" class="btn" value="Lưu">
 	</div>
 </form>
+
+

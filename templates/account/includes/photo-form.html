@@ -1,0 +1,10 @@
+{% load static %}
+{% load thumbnail %}
+
+{% if user.profile.photo %}
+	{% thumbnail user.profile.photo "100x100" as photo %}
+        <img src="{{ photo.url }}">
+    {% endthumbnail %}
+{% else %}
+	<a href="" ><img src="{% static "img/profile-picture.png" %}" alt="avatar"></a>
+{% endif %}

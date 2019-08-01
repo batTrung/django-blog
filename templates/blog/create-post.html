@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}
+Đăng bài viết mới
+{% endblock title %}
+
+{% block main %}
+<div class="container">
+  <div class="row">
+
+    <div class="col-xs-12">
+      <h1>Đăng bài viết mới</h1>
+
+      {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          {{ message }}
+        </div>
+        {% endfor %}
+      {% endif %}
+
+      <section class="white-box">
+       <form action="{% url "create_post" %}" method="post" enctype="multipart/form-data" novalidate>
+
+          {% csrf_token %}
+
+          <div class="row">
+
+            <div class="col-xs-6 mb-3">
+              <label for="{{ form.title.id_for_label }}">Tiêu đề</label>
+              {% render_field form.title class="form-control" placeholder="Tiêu đề" %}
+            </div>
+
+            <div class="col-xs-6 mb-3">
+              <label for="{{ form.category.id_for_label }}">Thể loại</label>
+              {% render_field form.category class="form-control" placeholder="Loại bài viết" %}
+            </div>
+
+            <div class="col-xs-6 mb-3">
+              <label for="{{ form.image.id_for_label }}">Hình ảnh</label>
+              {% render_field form.image class="form-control" placeholder="Hình ảnh" %}
+            </div>
+
+            <div class="col-xs-12 mb-3">
+              <label for="{{ form.body.id_for_label }}">Nội dung</label>
+              {% render_field form.body class="form-control" placeholder="Nội dung" %}
+            </div>
+
+            <div class="col-xs-6 mb-3">
+              {% render_field form.active %}
+              <label for="{{ form.active.id_for_label }}">Công khai?</label>
+            </div>
+
+          </div>
+
+          <button class="btn btn-primary" type="submit">Đăng</button>
+        </form>
+
+      </section>
+    </div>
+  </div>
+</div>
+
+{% endblock main %}
