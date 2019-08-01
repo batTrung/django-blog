@@ -14,7 +14,6 @@ User = get_user_model()
 
 
 def login(request):
-	messages.set_level(request, messages.DEBUG)
 	if request.method == 'POST':
 		form = LoginForm(request.POST)
 		if form.is_valid():
@@ -40,7 +39,6 @@ def login(request):
 
 
 def register(request):
-	messages.set_level(request, messages.DEBUG)
 	data = {}
 	if request.method == 'POST':
 		user_form = UserRegistrationForm(request.POST)
@@ -75,7 +73,6 @@ def register(request):
 
 @login_required
 def edit_profile(request):
-	messages.set_level(request, messages.DEBUG)
 	try: 
 		profile = request.user.profile
 	except:
@@ -116,6 +113,7 @@ def photo_update(request):
 	if request.method =='POST':
 		photo_form = PhotoForm(instance=profile, data=request.POST, files=request.FILES)
 		if photo_form.is_valid():
+			print(profile.photo.url)
 			photo_form.save()
 			photo_html = render_to_string('account/includes/photo-form.html', {'user': request.user})
 

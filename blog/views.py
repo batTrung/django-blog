@@ -33,7 +33,6 @@ def about(request):
 
 @user_passes_test(lambda u: u.is_superuser)
 def create_post(request):
-	messages.set_level(request, messages.DEBUG)
 	if request.method == 'POST':
 		form = PostCreateForm(request.POST, files=request.FILES)
 		if form.is_valid():
