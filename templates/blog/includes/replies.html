@@ -1,0 +1,30 @@
+{% load static %}
+{% load thumbnail %}
+
+
+{% for reply in comment.replies.all  %}
+<li>
+  <div class="comment">
+    {% if reply.user.profile.photo %}
+    {% thumbnail reply.user.profile.photo "60x60" as photo %}
+    <img src="{{ photo.url }}" style="border-radius: 50%;">
+    {% endthumbnail %}
+    {% else %}
+    <img src="{% static "img/profile-picture6.png" %}">
+    {% endif %}
+    <div class="comment-content">
+      <h3>{{ reply.user.username }}</h3>
+      <time datetime="2009-11-13T20:00Z">{{ reply.created|date:'d/m/Y , H:i' }}</time>
+      <p>
+        {{ reply.body }}
+      </p>
+      <div class="comment-content-footer">
+
+        <a title="Likes" href="#" class="light-link comment-content-footer-icon"><i class="pe-7s-like"></i>
+        {{ reply.user_like.count|default:0 }}</a>
+        <br>  
+      </div>
+    </div>
+  </div>
+</li>
+{% endfor %}

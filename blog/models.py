@@ -18,7 +18,7 @@ class Post(models.Model):
 	category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='posts')
 	body = models.TextField()
 	active = models.BooleanField(default=True)
-	user_like = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='like_posts', null=True, blank=True)
+	user_like = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_posts', blank=True)
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 
@@ -41,6 +41,24 @@ class Post(models.Model):
 
 class Category(models.Model):
 	name = models.CharField(max_length=50)
+	slug = models.SlugField(max_length=50, blank=True)
 
 	def __str__(self):
 		return self.name
+
+	def save(self, *args, **kwargs):
+		self.slug = slugify(self.name)
+		super(Category, self).save(*args, **kwargs)
+
+
+class Comment(models.Model):
+	post = models.ForeignKey('Post', on_delete=models.CASCADE, related_name='comments')
+	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
+	user_like = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comment_likes', blank=True, null=True)
+	body = models.TextField()
+	reply = models.ForeignKey('Comment', on_delete=models.CASCADE, related_name='replies', null=True, blank=True)
+	created = models.DateTimeField(auto_now_add=True)
+
+	def __str__(self):
+		return "'{}' bình luận bài viết '{}'".format(self.user.username, self.post.title)
+

@@ -1,5 +1,6 @@
 from django import template
 from ..models import Post, Category
+from ..forms import SearchForm
 from django.db.models import Q
 
 

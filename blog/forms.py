@@ -1,5 +1,5 @@
 from django import forms 
-from .models import Post, Category
+from .models import Post, Category, Comment
 
 
 class PostCreateForm(forms.ModelForm):
@@ -8,3 +8,21 @@ class PostCreateForm(forms.ModelForm):
 	class Meta:
 		model = Post
 		fields = ('title', 'image', 'active', 'category', 'body', )
+
+
+class UserlikeForm(forms.ModelForm):
+	class Meta:
+		model = Post
+		fields = ('user_like', )
+
+
+class SearchForm(forms.Form):
+	query = forms.CharField()
+
+
+class CommentForm(forms.ModelForm):
+	class Meta:
+		model = Comment
+		fields = ('body', )
+
+

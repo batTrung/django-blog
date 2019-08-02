@@ -1,6 +1,6 @@
 {% load static %}
 <div class="articles-author">
-  <img src="{% static "img/profile-picture.png" %}" alt="" data-rjs="2">
+  <img src="{% static "img/profile-picture.png" %}" style="border-radius: 50%">
   <div class="articles-author-right">
     <h4> {{ post.author.username }} </h4>
     <div class="social">
@@ -8,8 +8,10 @@
       <a target="_blank" href="https://github.com/batTrung" title="Github"><i class="icon-social_github_circle"></i></a>
       <a target="_blank" href="https://facebook.com/bat.trung1" title="Facebook"><i class="icon-social_facebook_circle"></i></a>
     </div>
-    <p>Compassionate entrepreneur on a mission to end homelessness. #jshomes Javascript, tech education, electronic music,
-      photography,
-    film, viral apps.</p>
+    <p>
+      Đây là trang blog nằm trong loạt <a href="">hướng dẫn học django</a> trên Youtube.
+      Mọi chi tiết từng bài viết các bạn tham khảo Blog <a href="https://djangobat.com" target="_blank">djangobat</a>
+      <a href="{% url 'about' %}">...xem thêm</a>
+    </p>
   </div>
 </div>

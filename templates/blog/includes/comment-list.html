@@ -1,0 +1,35 @@
+{% load static %}
+{% load thumbnail %}
+
+{% for comment in post.comments.all  %}
+<li>
+  <div class="comment">
+    {% if comment.user.profile.photo %}
+    {% thumbnail comment.user.profile.photo "60x60" as photo %}
+    <img src="{{ photo.url }}" style="border-radius:50%" alt="{{ comment.user.username }}">
+    {% endthumbnail %}
+    {% else %}
+    <img src="{% static "img/profile-picture7.png" %}" alt="Profile Picture">
+    {% endif %}
+    <div class="comment-content">
+      <h3>{{ comment.user.username }}</h3>
+      <time datetime="2009-11-13T20:00Z">{{ comment.created|date:'d/m/Y , H:i' }}</time>
+      <p>
+        {{ comment.body }}
+      </p>
+      <div class="comment-content-footer">
+        <a href="" id="js-reply" class="btn btn-small" id-show="#reply-{{ comment.id }}" data-url="{% url "comment_reply" comment.id %}" title="Trả lời">Trả lời</a>
+        <a title="Likes" href="#" class="light-link comment-content-footer-icon"><i class="pe-7s-like"></i> {{ comment.user_like.count|default:0 }}</a>
+      </div>
+    </div>
+  </div>
+  
+  {% if comment.replies %}
+  <ol class="comment-response" id="reply-{{ comment.id }}" >
+    {% include "blog/includes/replies.html" %}
+  </ol>
+  {% endif %}
+  
+
+</li>
+{% endfor %}

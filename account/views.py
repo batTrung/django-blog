@@ -52,7 +52,6 @@ def register(request):
 								username=request.POST['username'],
 								password=request.POST['password'])
 			auth_login(request, user)
-			messages.success(request, 'Đăng ký thành công')
 			return redirect('home')
 		else:
 			if user_form['username'].errors:

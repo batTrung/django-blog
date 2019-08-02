@@ -404,14 +404,14 @@ header {
       .header-top .header-top-nav ul .header-top-nav-search form {
         position: relative;
         margin: -3px 0 -4px;
-        width: 200px;
+        width: 850px;
         display: none; }
         @media (max-width: 991px) {
           .header-top .header-top-nav ul .header-top-nav-search form {
-            width: 300px; } }
+            width: 400px; } }
         @media (max-width: 575px) {
           .header-top .header-top-nav ul .header-top-nav-search form {
-            width: 200px; } }
+            width: 300px; } }
         .header-top .header-top-nav ul .header-top-nav-search form input {
           padding: 12px 40px 12px 0; }
         .header-top .header-top-nav ul .header-top-nav-search form button {

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% load blog_tag %}
+{% load static %}
+{% load widget_tweaks %}
+{% load thumbnail %}
+
+{% block title %}
+    Tìm kiếm bài viết
+{% endblock title %}
+
+
+{% block main %}
+<div class="container">
+    <div class="row">
+
+        <div class="col-xs-12">
+            <section class="category-title">
+                <h1>Tìm kiếm bài viết</h1>
+                <span>{{ posts.count }} bài tìm thấy</span>
+            </section>
+        </div>
+
+        <div class="col-xs-12">
+            <form action="{% url 'post_search' %}" method="post" novalidate>
+                {% csrf_token %}
+                {% render_field form.query class="form-control" placeholder="Tìm kiếm..." %}
+                <br>
+                <button type="submit" class="btn"><i class="pe-7s-search"></i> Tìm kiếm</button>
+            </form>
+        </div>
+
+        <div class="col-xs-12">
+
+            <div class="portfolio">
+               {% for post in posts  %}
+                <div class="portfolio-item white-box" data-portfolio="applications">
+                    <div class="portfolio-item-wrapper portfolio-item-default">
+                        <div class="portfolio-item-wrapper-left">
+                            <h2>{{ post.title }}</h2>
+                            <span class="portfolio-category">{{ post.category.name }}</span>
+                            <p class="font-primary">
+                                {{ post.body|truncatewords:30 }}
+                            </p>
+                            <button class="btn"><a href="{{ post.get_absolute_url }}">Xem thêm</a></button>
+                        </div>
+                        {% if post.image %}
+                        <div class="portfolio-item-wrapper-right">
+                            {% thumbnail post.image "389x253" as im %}
+                                <img class="img-fluid" src="{{ im.url }}">
+                            {% endthumbnail %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% empty %}
+                    <p class="portfolio-empty"><i class="pe-7s-attention"></i> Không tìm thấy bài viết nào</p>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main %}

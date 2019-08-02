@@ -18,7 +18,7 @@
 
           <div class="articles-header">
             <time datetime="2016-10-11">{{ post.created|timesince|to_time }}</time>
-            <span class="articles-header-category"><a href="#" class="green" title="">{{ post.category.name }}</a></span>
+            <span class="articles-header-category"><a href="{% url "category_detail" post.category.slug %}" class="green" title="">{{ post.category.name }}</a></span>
           </div>
 
           <div class="articles-content">
@@ -66,9 +66,15 @@
           <div class="articles-footer">
             <ul class="articles-footer-info">
               <li><a title="" href="#" class="light-link"><i class="pe-7s-comment"></i> 7 Bình luận</a></li>
-              <li><a title="" href="#" class="light-link"><i class="pe-7s-like"></i> {{ post.user_like.count|default:0 }} </a></li>
+              <li>
+                <a class="js-like light-link" id="{{ post.id }}" data-url="{% url 'update_like' %}" title="Like bài viết">
+                  {% include "blog/includes/like-html.html" %}
+                  <small class="error" style="color: red;  display: none"><a href="{% url 'login' %}">đăng nhập</a> để tiếp tục</small>
+                </a>
+              
+              </li>
             </ul>
-            <button class="btn btn-light-blue"><a title="Write a response" href="#">Viết bình luận</a></button>
+            <button class="btn btn-light-blue"><a title="Write a response" href="#js-comment">Viết bình luận</a></button>
           </div>
 
           {% include "blog/includes/about.html" %}
@@ -77,13 +83,33 @@
       </div>
     </div>
   </section>
+  
 
-  {% include "blog/includes/related-post.html" %}
+  
+  <section class="articles-info-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-xs-12">
+          <h1 class="articles-info-section-title">Bình luận </h1>
+        </div>
+      </div>
+    </div>
 
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-xs-12">
+          <div class="comments" data-url="{% url "comment_create" post.slug %}">
+            {% include "blog/includes/comment.html" %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  {% include "blog/includes/comment.html" %}
-
-
-  </div>
+</div>
 
 {% endblock main %}
+
+{% block scripts %}
+  <script src="{% static "js/comment.js" %}"></script>
+{% endblock scripts %}

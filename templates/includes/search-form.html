@@ -1,0 +1,6 @@
+{% load widget_tweaks %}
+<form action="{% url "post_search" %}" method="post" novalidate>
+	{% csrf_token %}
+	{% render_field form.query class="form-control" placeholder="Tìm kiếm..." %}
+	<button type="submit"><i class="pe-7s-search"></i></button>
+</form>

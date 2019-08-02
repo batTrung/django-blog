@@ -1,0 +1,8 @@
+{% load widget_tweaks %}
+
+<form action="{% url "comment_create" post.slug %}" method="post" id="js-comment-form">
+	{% csrf_token %}
+	{% render_field comment_form.body class="form-control" placeholder="Viết bình luận" %}
+	<br>
+	<button type="submit" class="btn">Bình luận</button>
+</form>

@@ -1,0 +1,6 @@
+{% if request.user in post.user_like.all %}
+	<i class="pe-7s-like" style="color: red;"></i> {{ post.user_like.count|default:0 }}
+{% else %}
+	<i class="pe-7s-like"></i> {{ post.user_like.count|default:0 }}
+{% endif %}
+
