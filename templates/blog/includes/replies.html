@@ -5,13 +5,15 @@
 {% for reply in comment.replies.all  %}
 <li>
   <div class="comment">
+
     {% if reply.user.profile.photo %}
-    {% thumbnail reply.user.profile.photo "60x60" as photo %}
-    <img src="{{ photo.url }}" style="border-radius: 50%;">
-    {% endthumbnail %}
+      {% thumbnail reply.user.profile.photo "60x60" as photo %}
+        <img src="{{ photo.url }}" style="border-radius: 50%;">
+      {% endthumbnail %}
     {% else %}
-    <img src="{% static "img/profile-picture6.png" %}">
+      <img src="{% static "img/profile-commen.png" %}">
     {% endif %}
+
     <div class="comment-content">
       <h3>{{ reply.user.username }}</h3>
       <time datetime="2009-11-13T20:00Z">{{ reply.created|date:'d/m/Y , H:i' }}</time>
@@ -27,6 +29,7 @@
         <br>  
       </div>
     </div>
+
   </div>
 </li>
 {% endfor %}

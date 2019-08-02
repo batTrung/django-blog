@@ -65,7 +65,7 @@
                                             <img src="{{ photo.url }}" style="border-radius: 50%">
                                         {% endthumbnail %}
                                     {% else %}
-                                        <img src="{% static "img/profile-picture.png" %}" width="35" height="35" alt="Profile Picture" data-rjs="2">
+                                        <img src="{% static "img/profile.png" %}" width="35" height="35" alt="Profile Picture" data-rjs="2">
                                     {% endif %}
                                     <a class="dropdown-toggle" title="{{ request.user.username }}">{{ request.user.username }}</a>
                                     <ul class="dropdown-menu">
