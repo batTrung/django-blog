@@ -1,6 +1,6 @@
 {% load widget_tweaks %}
 
-<form action="{% url "comment_reply" comment.id %}" method="post" id="js-reply-form">
+<form action="{% url "comment_reply" comment.id %}" id-show="#reply-{{ comment.id }}" method="post" id="js-reply-form">
 	{% csrf_token %}
 	{% render_field reply_form.body class="form-control" placeholder="Viết câu trả lời" %}
 	<br>

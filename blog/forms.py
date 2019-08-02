@@ -10,12 +10,6 @@ class PostCreateForm(forms.ModelForm):
 		fields = ('title', 'image', 'active', 'category', 'body', )
 
 
-class UserlikeForm(forms.ModelForm):
-	class Meta:
-		model = Post
-		fields = ('user_like', )
-
-
 class SearchForm(forms.Form):
 	query = forms.CharField()
 

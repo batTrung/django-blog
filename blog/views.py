@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .models import Post, Category, Comment
-from .forms import PostCreateForm, UserlikeForm, SearchForm, CommentForm
+from .forms import PostCreateForm, SearchForm, CommentForm
 
 
 def home(request):
@@ -114,9 +114,7 @@ def get_context(request, object_list):
 	except EmptyPage:
 		posts = paginator.page(paginator.num_pages)
 
-	like_form = UserlikeForm()
-
-	return {'posts': posts, 'like_form': like_form}
+	return {'posts': posts}
 
 
 @login_required
@@ -155,7 +153,6 @@ def comment_reply(request, id):
 		reply_form = CommentForm(request.POST)
 		if reply_form.is_valid():
 			reply = reply_form.save(commit=False)
-			reply.post = comment.post
 			reply.user = request.user
 			reply.save()
 			comment.replies.add(reply)
@@ -172,4 +169,25 @@ def comment_reply(request, id):
 				{'reply_form': reply_form, 'comment': comment},
 				request=request)
 	
+	return JsonResponse(data)
+
+
+@login_required
+def update_comment_like(request):
+	data = {}
+	user = request.user
+	if user.is_authenticated:
+		data['is_valid'] = True
+		id = request.GET.get('id')
+		comment = get_object_or_404(Comment, id=id)
+		exit_user = comment.user_like.filter(username=user.username).exists()
+		if exit_user:
+			comment.user_like.remove(user)
+		else:
+			comment.user_like.add(user)
+		data['like_html'] = render_to_string('blog/includes/like-html.html', {'post': comment}, request=request)
+		
+	else:
+		data['is_valid'] = False
+
 	return JsonResponse(data)

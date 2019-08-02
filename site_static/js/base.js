@@ -34,8 +34,6 @@ $(function(){
 			success: function(data){
 				if (data.is_valid){
 					el.html(data.like_html)
-				} else {
-					$('.error').show();
 				}
 			}
 		})

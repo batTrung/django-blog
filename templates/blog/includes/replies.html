@@ -20,8 +20,10 @@
       </p>
       <div class="comment-content-footer">
 
-        <a title="Likes" href="#" class="light-link comment-content-footer-icon"><i class="pe-7s-like"></i>
-        {{ reply.user_like.count|default:0 }}</a>
+        <a title="Likes" data-url="{% url "update_comment_like" %}" id="{{ reply.id }}" class="light-link comment-content-footer-icon js-comment-like">
+          {% include "blog/includes/like-html.html" with post=reply %}
+        </a>
+        
         <br>  
       </div>
     </div>

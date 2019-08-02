@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.conf import settings
+from django.db.models import Q
 from django.urls import reverse
 
 
@@ -34,6 +35,9 @@ class Post(models.Model):
 	def get_absolute_url(self):
 		return reverse("post_detail", args=[self.slug])
 
+	def get_total_comment(self):
+		 return Comment.objects.filter(Q(post=self) | Q(reply__post=self)).count()
+
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.title)
 		super(Post, self).save(*args, **kwargs)
@@ -52,13 +56,12 @@ class Category(models.Model):
 
 
 class Comment(models.Model):
-	post = models.ForeignKey('Post', on_delete=models.CASCADE, related_name='comments')
+	post = models.ForeignKey('Post', on_delete=models.CASCADE, related_name='comments', null=True, blank=True)
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
-	user_like = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comment_likes', blank=True, null=True)
+	user_like = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='comment_likes', blank=True)
 	body = models.TextField()
 	reply = models.ForeignKey('Comment', on_delete=models.CASCADE, related_name='replies', null=True, blank=True)
 	created = models.DateTimeField(auto_now_add=True)
 
 	def __str__(self):
-		return "'{}' bình luận bài viết '{}'".format(self.user.username, self.post.title)
-
+		return "'{}' bình luận bài viết".format(self.user.username)

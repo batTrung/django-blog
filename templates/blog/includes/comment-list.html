@@ -19,7 +19,11 @@
       </p>
       <div class="comment-content-footer">
         <a href="" id="js-reply" class="btn btn-small" id-show="#reply-{{ comment.id }}" data-url="{% url "comment_reply" comment.id %}" title="Trả lời">Trả lời</a>
-        <a title="Likes" href="#" class="light-link comment-content-footer-icon"><i class="pe-7s-like"></i> {{ comment.user_like.count|default:0 }}</a>
+    
+        <a title="Likes" data-url="{% url "update_comment_like" %}" id="{{ comment.id }}" class="light-link comment-content-footer-icon js-comment-like">
+          {% include "blog/includes/like-html.html" with post=comment %}
+        </a>
+        
       </div>
     </div>
   </div>
