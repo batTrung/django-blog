@@ -5,7 +5,10 @@
   <div class="comment">
 
     {% if reply.user.profile.photo %}
-      <img src="{{ reply.user.profile.photo.url }}" width="60" height="60" style="border-radius: 50%;">
+        {% thumbnail reply.user.profile.photo "60x60" as im %}
+            <img src="{{ im.url }}" style="border-radius: 50%;" alt="{{ comment.user.username }}">
+        {% endthumbnail %}
+
     {% else %}
       <img src="{% static "img/profile-commen.png" %}">
     {% endif %}

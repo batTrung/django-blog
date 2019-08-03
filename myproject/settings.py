@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'account',
     'blog',
 
+    'sorl.thumbnail',
     'widget_tweaks',
     'django_cleanup',
     'storages',

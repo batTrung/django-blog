@@ -4,6 +4,8 @@
 {% load widget_tweaks %}
 {% load blog_tag %}
 
+{% load thumbnail %}
+
 {% block title %}
 Đăng bài viết mới
 {% endblock title %}
@@ -22,7 +24,11 @@
           </div>
 
           <div class="articles-content">
-            <img class="articles-preview-img" src="{{ post.image.url }}">
+            {% if post.image %}
+              {% thumbnail post.image "596x359" as im %}
+                <img class="articles-preview-img" src="{{ im.url }}">
+              {% endthumbnail %}
+            {% endif %}
             
             <h1 class="articles-content-blog-post-title">{{ post.title }}</h1>
 

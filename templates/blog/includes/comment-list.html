@@ -1,10 +1,14 @@
 {% load static %}
+{% load thumbnail %}
 
 {% for comment in post.comments.all  %}
 <li>
   <div class="comment">
     {% if comment.user.profile.photo %}
-      <img src="{{ comment.user.profile.photo.url }}" width="60" height="60" style="border-radius:50%" alt="{{ comment.user.username }}">
+        {% thumbnail comment.user.profile.photo "60x60" as im %}
+            <img src="{{ im.url }}" style="border-radius:50%" alt="{{ comment.user.username }}">
+        {% endthumbnail %}
+  
     {% else %}
     <img src="{% static "img/profile-commen.png" %}" alt="Profile Picture">
     {% endif %}

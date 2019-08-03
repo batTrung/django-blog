@@ -3,6 +3,9 @@
 {% load static %}
 {% load blog_tag %}
 
+{% load thumbnail %}
+
+
 {% block title %}
 BLOG DJANGO
 {% endblock title %}
@@ -24,7 +27,9 @@ BLOG DJANGO
                 <article>
 
                     {% if post.image %}
-                         <img class="articles-preview-img" width="596" height="359" src="{{ post.image.url }}">
+                        {% thumbnail post.image "596x359" as im %}
+                            <img class="articles-preview-img" src="{{ im.url }}">
+                        {% endthumbnail %}
                     {% endif %}
                   
                     <div class="articles-header">
