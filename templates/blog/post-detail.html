@@ -65,12 +65,12 @@
 
           <div class="articles-footer">
             <ul class="articles-footer-info">
-              <li><a title="" href="#" class="light-link"><i class="pe-7s-comment"></i> {{ post.get_total_comment }} Bình luận</a></li>
+              <li><a title="" href="#comment" class="light-link"><i class="pe-7s-comment"></i> {{ post.get_total_comment }} Bình luận</a></li>
               <li>
                 
                 <a class="js-like light-link" id="{{ post.id }}" data-url="{% url 'update_like' %}" title="Like bài viết">
                   {% include "blog/includes/like-html.html" %}
-                  <small class="error" style="color: red;  display: none"><a href="{% url 'login' %}">đăng nhập</a> để tiếp tục</small>
+                
                 </a>
               
               </li>
