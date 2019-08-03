@@ -168,6 +168,7 @@ if USE_S3:
     AWS_S3_FILE_OVERWRITE = False
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
     STATICFILES_STORAGE = config('STATICFILES_STORAGE')
+    DEFAULT_FILE_STORAGE = config('DEFAULT_FILE_STORAGE')
 else:
     STATIC_URL = '/static/'
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
