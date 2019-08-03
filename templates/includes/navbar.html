@@ -1,5 +1,4 @@
 {% load static %}
-{% load thumbnail %}
 {% load blog_tag %}
 
 <!-- HEADER -->
@@ -61,9 +60,7 @@
 
                                 <li class="dropdown account">
                                     {% if user.profile.photo %}
-                                        {% thumbnail request.user.profile.photo "35x35" as photo %}
-                                            <img src="{{ photo.url }}" style="border-radius: 50%">
-                                        {% endthumbnail %}
+                                        <img src="{{ user.profile.photo.url }}"  width="35" height="35" style="border-radius: 50%">
                                     {% else %}
                                         <img src="{% static "img/profile.png" %}" width="35" height="35" alt="Profile Picture" data-rjs="2">
                                     {% endif %}

@@ -3,6 +3,7 @@ from django.utils.text import slugify
 from django.conf import settings
 from django.db.models import Q
 from django.urls import reverse
+from myproject.storage_backends import PublicMediaStorage
 
 
 class PublishedManager(models.Manager):
@@ -14,7 +15,7 @@ class PublishedManager(models.Manager):
 class Post(models.Model):
 	title = models.CharField(max_length=200)
 	slug = models.SlugField(max_length=200, blank=True)
-	image = models.ImageField(upload_to='posts/%Y/%m/%d/', blank=True)
+	image = models.ImageField(storage=PublicMediaStorage(), blank=True)
 	author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='posts')
 	category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='posts')
 	body = models.TextField()

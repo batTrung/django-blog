@@ -3,8 +3,6 @@
 {% load static %}
 {% load blog_tag %}
 
-{% load thumbnail %}
-
 {% block title %}
 BLOG DJANGO
 {% endblock title %}
@@ -26,11 +24,9 @@ BLOG DJANGO
                 <article>
 
                     {% if post.image %}
-                        {% thumbnail post.image "596x359" as im %}
-                            <img class="articles-preview-img" src="{{ im.url }}">
-                        {% endthumbnail %}
+                         <img class="articles-preview-img" width="596" height="359" src="{{ post.image.url }}">
                     {% endif %}
-
+                  
                     <div class="articles-header">
                         <time datetime="2016-10-11">{{ post.created|timesince|to_time }} trước</time>
                         <i style="font-size: 20px;" class="pe-7s-timer"></i>

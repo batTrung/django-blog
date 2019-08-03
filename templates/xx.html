@@ -1,0 +1,13 @@
+<!--   {% if post.image %}
+                      {% thumbnail post.image "596x359" as im %}
+                          <img class="articles-preview-img"596x359 src="{{ post.image.url }}">
+                      {% endthumbnail %}
+                  {% endif %}
+                   -->
+
+                   home
+
+                   {% thumbnail request.user.profile.photo "35x35" as photo %}
+                                            <img src="{% thumbnail user.profile.photo 35x35 crop %}" style="border-radius: 50%">
+                                        {% endthumbnail %}
+                                        navbar
