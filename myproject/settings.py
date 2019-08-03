@@ -27,7 +27,7 @@ SECRET_KEY = 'qwksaffus6_gz7$sr@skf8e$zc9um8r@%7-2o3rr_d9r14#!1j'
 DEBUG = os.environ.get('DEBUG', False)
 
 
-ALLOWED_HOSTS = os.environ.get(ALLOWED_HOSTS)
+ALLOWED_HOSTS = ['dbat-blog.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
