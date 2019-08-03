@@ -24,7 +24,7 @@ SECRET_KEY = 'qwksaffus6_gz7$sr@skf8e$zc9um8r@%7-2o3rr_d9r14#!1j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = False
+DEBUG = True
 
 
 ALLOWED_HOSTS = ['dbat-blog.herokuapp.com', '127.0.0.1']
