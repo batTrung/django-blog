@@ -27,7 +27,7 @@ SECRET_KEY = 'qwksaffus6_gz7$sr@skf8e$zc9um8r@%7-2o3rr_d9r14#!1j'
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['dbat-blog.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -92,9 +92,9 @@ DATABASES = {
     }
 }
 
-# import dj_database_url
-# db_from_env = dj_database_url.config(conn_max_age=500)
-# DATABASES['default'].update(db_from_env)
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 
 # Password validation
