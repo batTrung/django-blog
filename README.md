@@ -1,6 +1,6 @@
 # Hướng dẫn tạo Blog với Django ( Tutorial)
 
-<a target="_blank" href="https://www.djangobat.com/blog/huong-dan-dung-channels-tao-ung-dung-real-time-trong-django/"><img src="https://www.djangobat.com/media/posts/2019/04/23/channels.jpg" alt="" /></a>
+<a target="_blank" href="https://www.djangobat.com/khoa-hoc/huong-dan-tao-ung-dung-blog-django-aws-s3-heroku/"><img src="https://www.djangobat.com/media/courses/2019/08/04/django-blog.jpg" alt="" /></a>
 
 
 ## BLOG djangobat
