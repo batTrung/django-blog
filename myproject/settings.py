@@ -29,7 +29,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-DEBUG = config('DEBUG') == 'FALSE'
+DEBUG = config('DEBUG') == 'TRUE'
 
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
